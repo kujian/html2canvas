@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML2Canvas Demo</title>
+    <!-- Bootstrap -->	
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css?ver=3.9.1" rel="stylesheet">
+	<style type="text/css">
+	.container{
+    border-bottom:#ccc 1px solid;
+    padding:10px 0;
+}
+
+.captureResult{
+    margin: 0;
+}
+
+img {
+    margin: 5px 10px 5px 0;
+    border: 1px solid #999;
+    border-radius: 10px;
+    -moz-box-shadow: 0 0 15px 5px #888;
+    -webkit-box-shadow: 0 0 15px 5px#888;
+    box-shadow: 0 0 15px 5px #888;
+}
+
+.captureResult img{
+    margin:10px 0 0 0;
+    -moz-box-shadow: 0 0 15px 5px #888;
+    -webkit-box-shadow: 0 0 15px 5px#888;
+    box-shadow: 0 0 15px 5px #888;
+}
+
+.hidden{
+    display: none;
+}
+</style>
+  </head>
+  <body id="all">
+		<div class="container">
+			<h1>将HTML内容写入到Canvas<button class="capture btn btn-success" type="button" cmd="all">Capture ALL</button></h1>
+		</div>
+		<div class="container" id="languages">
+			<h2>Popular Programming Languages</h2>
+			<div class="span9">
+				<table class="table table-bordered">
+				  <thead>
+					<tr>
+					  <th>#</th>
+					  <th>Language1</th>
+					  <th>Language2</th>
+					  <th>Language3</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td rowspan="2">1</td>
+					  <td>Javascript</td>
+					  <td>HTML</td>
+					  <td>CSS</td>
+					</tr>
+					<tr>
+					  <td>PHP</td>
+					  <td>Python</td>
+					  <td>Node.js</td>
+					</tr>
+					<tr>
+					  <td>2</td>
+					  <td>C</td>
+					  <td>C++</td>
+					  <td>C#</td>
+					</tr>
+					<tr>
+					  <td>3</td>
+					  <td colspan="2">Java</td>
+					  <td>Actionscript</td>
+					</tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="captureResult span12">
+				<button class="capture btn btn-success" type="button" cmd="languages">Capture</button>
+				<img class="hidden" src="" />
+			</div>
+		</div>
+		<div class="container" id="form">
+			<h2>Form Area</h2>
+			<form class="form-horizontal">
+			  <div class="control-group">
+				<label class="control-label" for="inputEmail">Email</label>
+				<div class="controls">
+				  <input type="text" id="inputEmail" placeholder="Email">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="inputPassword">Password</label>
+				<div class="controls">
+				  <input type="password" id="inputPassword" placeholder="Password">
+				</div>
+			  </div>
+			  <div class="control-group">
+				<div class="controls">
+				  <label class="checkbox">
+					<input type="checkbox"> Remember me
+				  </label>
+				  <button type="submit" class="btn">Sign in</button>
+				</div>
+			  </div>
+			</form>
+			<div class="captureResult span12">
+				<button class="capture btn btn-success" type="button" cmd="form">Capture</button>
+				<img class="hidden" src="" />
+			</div>
+		</div>
+		
+		<div class="container" id="buttons">
+			<h2>Buttons</h2>
+			<p>
+			  <button class="btn btn-large btn-primary" type="button">Large button</button>
+			  <button class="btn btn-large" type="button">Large button</button>
+			</p>
+			<p>
+			  <button class="btn btn-primary" type="button">Default button</button>
+			  <button class="btn" type="button">Default button</button>
+			</p>
+			<p>
+			  <button class="btn btn-small btn-primary" type="button">Small button</button>
+			  <button class="btn btn-small" type="button">Small button</button>
+			</p>
+			<p>
+			  <button class="btn btn-mini btn-primary" type="button">Mini button</button>
+			  <button class="btn btn-mini" type="button">Mini button</button>
+			</p>
+			<div class="captureResult span12">
+				<button class="capture btn btn-success" type="button" cmd="buttons">Capture</button>
+				<img class="hidden" src="" />
+			</div>
+		</div>
+		<div class="container" id="images">
+			<h2>Images</h2>
+			<img src="assets/1.jpg"/>
+			<img src="assets/2.jpg"/>
+			<div class="captureResult span12">
+				<button class="capture btn btn-success" type="button" cmd="images">Capture</button>
+				<img class="hidden" src="" />
+			</div>
+		</div>
+		
+    <script src="//lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js?ver=lastest"></script>
+    <script type="text/javascript" src="../build/html2canvas.js"></script>
+    <script type="text/javascript" src="jquery.plugin.html2canvas.fix.js"></script>
+    <script type="text/javascript">
+    ;$(document).ready(function(){
+	$('.capture').click(function(){
+		var target = $(this).attr('cmd');
+		var st = $(document).scrollTop();
+		console.log(st);
+		$('#'+target).html2canvas({},function(imgData,w,h){
+			if(target != 'all'){
+				$('#'+target).find('.captureResult img').attr('src',imgData).ready(function(){
+					$(document).scrollTop(st);
+				}).removeClass('hidden');
+			}else{
+				window.open(imgData);
+			}
+		});
+		return false;
+	});
+});
+    </script>
+  </body>
+</html>
